@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}  {% endblock title %}
+
+{% block header %} {% endblock header %}
+
+
+{% block content %}
+<h1>Главная страница</h1>
+
+<h2>Динамический контент</h2>
+
+<p>Количество книг: {{ num_books }}</p>
+<p>Количество экземпляров книг: {{ num_instances }}</p>
+<p>Количество экземпляров книг на складе: {{ num_instances_available }}</p>
+<p>Количество авторов книг: {{ num_authors }}</p>
+<p>Количество посещений: {{ num_visits }}</p>
+
+{{ user.id }}
+
+
+{% endblock content %}
+
+{% block footer %} footer {% endblock footer %}

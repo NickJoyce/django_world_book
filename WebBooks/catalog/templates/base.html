@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+	<head>
+		<title>{% block title %} {% endblock title %}</title>
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+	    <script src="{% static 'js/main.js' %}"></script>
+		{% block head %} {% endblock head %}
+	</head>
+	<body>
+		<div class="wrapper">
+			<div class="header">
+				<div>
+					{% if user.is_authenticated %}
+						<p><a href="{% url 'my-borrowed' %}">Мои заказы</a></p>
+						<p>Пользователь: {{ user.get_username }}</p>
+						<p><a href="{% url 'logout' %}?next={{request.path}}">Logout</a></p>
+					{% else %}
+						<p><a href="{% url 'login' %}?next={{request.path}}">Login</a></p>
+					{% endif %}
+				</div>
+
+
+				{% block header %} {% endblock header %}
+			</div>
+			<div class="sidebar">
+				<div><a href="{% url 'index' %}">Главная страница</a></div>
+				<div><a href="{% url 'books' %}">Все книги</a></div>
+				<div><a href="{% url 'authors' %}">Все авторы</a></div>
+				<div><a href="{% url 'authors_add' %}">Редатирование авторов</a></div>
+				<div><a href="{% url 'book_create' %}">Добавить книгу</a></div>
+			</div>
+			<div class="content">
+				{% block content %} {% endblock content %}
+				{% block pagination %}
+					{% if is_paginated %}
+						<div class="pagination">
+							<span class="page-links">
+								{% if page_obj.has_previous %}
+									<a href="{{ request.path }}?page={{page_obj.previous_page_number}}">Предыдущая</a>
+								{% endif %}
+								<span class="page-current">
+									Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}
+								</span>
+								{% if page_obj.has_next %}
+									<a href="{{ request.path }}?page={{ page_obj.next_page_number }}">Следующая</a>
+								{% endif %}
+							</span>
+						</div>
+					{% endif %}
+				{% endblock pagination %}
+			</div>
+			<div class="footer">{% block footer %} {% endblock footer %}</div>
+		</div>
+	</body>
+</html>

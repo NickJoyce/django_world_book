@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+<p>{{ author.first_name }}</p>
+<p>{{ author.last_name}}</p>
+<p>{{ author.date_of_birth}}</p>
+<p>{{ author.date_of_death }}</p>
+
+
+<!--Обращаемся к авторам модель которая связана с Author через связь Многие-ко-многим-->
+{% for book in author.book.all %}
+    <P>Книга:<a href="">{{ book.title }}</a></P>
+{% endfor %}
+
+
+
+
+
+{% endblock %}
